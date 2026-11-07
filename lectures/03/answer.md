@@ -306,7 +306,7 @@ uv run python -m app.agent --trace "LoRA とQLoRAの違いは？"
 
 ---
 - 取り組んだレベル： 発展
-- やったこと： (a) 演習のエージェントと同じ指示とツールを使い、エージェントを組み立てる部分だけを Google の ADK で書き直し、adk run で動かして、書き方や回答を比べます。
+- やったこと： (a) 演習のエージェントと同じ指示とツールを使い、エージェントを組み立てる部分だけを Google の ADK で書き直し、`adk run` で動かして、書き方や回答を比べます。
 - 結果： 
     
     `PYTHONPATH=. uv run --with google-adk adk run adk_agent/glossary_agent`
@@ -348,6 +348,19 @@ uv run python -m app.agent --trace "LoRA とQLoRAの違いは？"
 
 ---
 - 取り組んだレベル： 発展
-- やったこと： (b) コーディングエージェントの Pi を Codespaces で動かし、公開されている Pi のシステムプロンプトと、自分のエージェントの INSTRUCTIONS を比べます
+- やったこと： (b) コーディングエージェントの Pi を Codespaces で動かし、公開されている Pi のシステムプロンプトと、自分のエージェントの `INSTRUCTIONS` を比べます
 - 結果： 
+    - Pi のシステムプロンプト： 動的・interactive対応
+    - 自分のエージェントの `INSTRUCTIONS`： 静的・固定
 - 気づき・疑問： 
+    - Pi のシステムプロンプト vs `INSTRUCTIONS`について： 動的にするには具体的な指示書でなく、指示書を、状況に合わせて自動的に組み立てる「ビルダー」なる物を要するらしい。`packages/coding-agent/src/core/system-prompt.ts`ファイルの詳細やこの仕組み自体の詳細はどうなっているのか知りたいと思います。
+    - Pi を動かしてみて、その挙動について：
+        - UIがGUIに近い;
+        - ADK同様、CLI無しで、質問文は直接入力;
+        - これまで同様「AIE2026の講座の宿題にある「3レベル」とは何ですか？」を尋ねると、以下の検索を行いRAG的挙動と回答をする
+            - `find . -maxdepth 3 -not -path '*/.*'`
+            - `git grep -i "レベル"`
+            - `git grep -n -c 5 "宿題の3レベル" data/glossary.json`
+            - `git grep -n -c 5 "3レベル" README.md`
+            - `git grep -n -c 5 "基礎" lectures/01/problem.md`
+        - 確認無しのコマンド実行は起きたが、質問内容がsafeだったおかげか、コード改変は起きなかった;
