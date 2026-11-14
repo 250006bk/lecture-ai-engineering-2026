@@ -1,0 +1,10 @@
+{"id": "01", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": true, "note": "用語集に記載が無いと伝えた上で、ML/DLにおける一般的な解説; 「関係する回：第3回（および機械学習の基礎を扱う回）」はハルシネーションの疑い"}
+{"id": "02", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": ""}
+{"id": "03", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "「パイ」でないと反応しなかったか、用語集に記載なしの旨を伝えるのみ"}
+{"id": "04", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": ""}
+{"id": "05", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "#04の記憶を伴っている?; 自身の持つツールを把握してサポート可能な内容を網羅的に紹介"}
+{"id": "06", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "両者とも期待通り; ADKについては用語集に沿った内容; SDKについては用語集に記載内旨を伝えた上で一般的な解説; 最後にまとめ的に違いの説明"}
+{"id": "07", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": ""}
+{"id": "08", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "「3つ」の回答 ← case sensitive?"}
+{"id": "09", "grounding": "pass", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "重複質問（#08, 09）に対し、回答に表記揺れほぼ無し（#08「講座の用語集」 vs #09「用語集」の1か所のみ）"}
+{"id": "10", "grounding": "fail", "scope": "pass", "hint": "pass", "clarity": "pass", "lecture_mark": "pass", "unsure_flag": false, "note": "ハルシネーション \"この講座（AIE2026）は、全2シーズンで構成されており、各シーズン10回の講義があるため、「2シーズン × 第10回」\""}
