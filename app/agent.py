@@ -107,8 +107,8 @@ agent = Agent(instructions=INSTRUCTIONS)
 agent.tool_plain(tools.search_materials)
 # ～第四回 (mainブランチ)
 # agent = Agent(instructions=INSTRUCTIONS, output_type=[str, DeferredToolRequests])
-# agent.tool_plain(tools.search_glossary)
-# agent.tool_plain(tools.get_lecture_summary)
+agent.tool_plain(tools.search_glossary)
+agent.tool_plain(tools.get_lecture_summary)
 
 # TODO(第3回 演習): tools.py に make_quiz を作り、ここで登録しよう
 agent.tool_plain(tools.make_quiz)  # lec03で追加
