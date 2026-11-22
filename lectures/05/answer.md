@@ -7,8 +7,8 @@
 - 対象資料（全文投入と他の方式で範囲が違う点も記録）： `app/agent.py`, `app/tool.py`, `app/retrieval.py`, `app/config.py` より 
     - 全文投入： `data/rag_data/lectures.json`;
     - ベクトル検索： `data/rag_data/index.sqlite3`;
-    - Tree： `data/rag_data/tree.json`;
-    - Graph： `data/rag_data/graph.json`;
+    - Tree： `data/rag_data/tree.json`; `data/rag_data/lectures.json`;
+    - Graph： `data/rag_data/graph.json`; `data/rag_data/lectures.json`;
 
 ### 各方式の結果
 
