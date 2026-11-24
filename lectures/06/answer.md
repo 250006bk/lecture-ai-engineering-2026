@@ -230,6 +230,46 @@
 
 ---
 - 取り組んだレベル： 発展
-- やったこと：
+- やったこと：  自分が使っているソフトウェア（Claude Code、Codex、Gemini CLI など）を 1 つ選び、MCP サーバーの設定方法を公式ドキュメントで調べます。特に使っているものがない場合は、VS Code を調べます。調べた設定方法を、演習で使った `app/mcp_servers.json` と比べます
 - 結果：
+	- 対象： `VS Code`;
+	- 公式ドキュメント： `https://code.visualstudio.com/docs/agent-customization/mcp-servers`（、`https://github.com/MicrosoftDocs/mcp/blob/main/README.md`）;
+	- 設定方法： 3種類 （下から順に確実性が高そう）
+		1) "Copilot connectors" / "GitHub-managed MCP servers" （11/24/2026 時点で Preview status; `https://code.visualstudio.com/docs/agent-customization/copilot-connectors`）： Slack、Notion、Microsoft Learn 等サービスの場合は、ローカルサーバーのインストール / セットアップや MCP configuration、credentials の管理不要で接続可能。 \
+		手順：
+			1) コマンドパレットから `Chat: Open Customizations` を実行し `Browse` を選択;
+			2) ソースメニューから `Copilot Connectors` を選択、もしくはサービスの名前を検索;
+			3) connector の詳細を開き `Connect` を選択;
+			4) リクエストされた permissions を確認し、必要に応じサービスへのサインインを含む authorization をブラウザ上で完了する;
+			5) `Connected` ステイタスの表示を待つ;
+		
+		2) サーバーを検索・インストール：
+			- 2-1) "Customization Marketplace" （11/24/2026 時点で Preview status; `https://code.visualstudio.com/docs/agent-customization/mcp-servers#_find-and-install-a-server`）でサーバーを見つける。 \
+		手順：
+				1) コマンドパレットから `Chat: Open Customizations` を実行し `Browse` を選択;
+				2) ソースメニューから `GitHub Feed`（11/24/2026 時点で実験段階、marketplace searchを提供するハーネスを要する）を選択し、名前を入力もしくは `@type:mcp` で検索;
+				3) 公開元、サーバーの権限、セットアップ要件を確認し、利用可能であれば `Install` を選択;
+				4) 公開元のセットアップを完了させる;
+			- 2-2) MCP tools をまとめたプラグインをインストールする （https://code.visualstudio.com/docs/agent-customization/agent-plugins#_discover-and-install-plugins）：
+				- マーケットプレイスからプラグインをインストール \
+		手順：
+					1) コマンドパレットから `Chat: Open Customizations` を実行し、Agent Customizations エディターを開く;
+					2) "Customization Marketplace" から、もしくは `Plugins` → `Browse Marketplace` 選択でアクセスできるマーケットプレイスから利用可能なプラグインを閲覧;
+					3) プラグインを選択し、公開元や含まれるカスタム設定、提供されている場合は `Plugin README` を確認;
+					4) `Install` を選択;
+				- 提供元（Git repository、ローカルフォルダー）からプラグインをインストール \
+		手順：
+					1) "Agent Customizations" エディター内で `Plugins` を選択し、`User` もしくは `Workspace` の隣の `+` ボタンを選択;
+					2) Git repository の URL（この場合、クローンしてプラグインをインストールする）もしくはローカルフォルダーの path を入力;
+		
+		3) サーバーを直接追加する \
+		手順：
+			1) `Copilot` が選択されている状態で、`Chat: Open Customizations` を実行し、`MCP Servers` を選択し、`User` グループ内の `Add Server`（`+`）を選択;
+			2) `HTTP (HTTP or Server-Sent Events)` を選択し、サーバーエンドポイント（例えば Microsoft Learn MCP サーバーなら `https://learn.microsoft.com/api/mcp`）を入力;
+			3) ユニークなサーバー ID（例えば `microsoftLearn`）を入力;
+			4) `Global` → `Copilot Global` を選択;
+			5) サーバーの trust requests を受け入れ前に確認;
 - 気づき・疑問：
+	- `app/mcp_servers.json` との比較： `https://github.com/MicrosoftDocs/mcp/blob/main/README.md` の "The Microsoft Learn MCP Server Endpoint" セクション内 "Standard config works in most clients:" 部分の構成がほぼ同じ（"works in most clients"）;
+	- まだ実験・導入期のようですが、GUI 化・連携/囲い込みを進めている様子で、講義・演習では下火になりそうな気配を教えていただきましたが、（web サイトであれば SEO / ページランクとの戦いになりそうですが）AI エージェントにおける web ブラウザの "ブックマーク" や SNS の "フォロー" に近い存在になりそうな気がします。
+
