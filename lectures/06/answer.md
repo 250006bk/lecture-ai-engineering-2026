@@ -168,9 +168,65 @@
 
 ---
 - 取り組んだレベル： 実装
-- やったこと：
+- やったこと： MCP サーバーに、自分でツールを追加します（第 3 回で作った `make_quiz`。なければ新しいツール）。引数が範囲外のときに分かりやすいメッセージを返すようにし、そのメッセージがモデルにどう伝わるかを確かめます （"範囲外のときに分かりやすいメッセージを返す" 機能は、`make_quiz` 関数内に既存だったため、ツール追加のみ）
 - 結果：
-- 気づき・疑問：
+    - 【範囲外】 `uv run python -m app.mcp_agent --trace "第99回のクイズを作って"`：
+        ```
+        [server] glossary: コマンドで起動（uv run python -m app.mcp_server）
+        [server] fetch: コマンドで起動（uvx mcp-server-fetch==2026.11.11 --no-readability-js）
+        [server] aws: URL に接続（https://knowledge-mcp.global.api.aws）
+        [model] gemini-3.5-flash-lite
+        [tools] MCP サーバー（app/mcp_servers.json）
+        Installed 46 packages in 2.04s
+        申し訳ありませんが、第99回の講義や用語集が見つかりませんでした。
+
+        本講座は通常、そこまでの回数（第99回）は設定されていません。別の回（例：第1回〜最終回など）のクイズをご希望の場合は、対象の回を指定していただければ確認問題をお作りします！
+
+        --- trace ---
+        [tool call]   glossary_make_quiz({'lecture': 99})
+        [tool return] glossary_make_quiz -> 第99回の用語が見つかりませんでした。…
+        [usage] 入力 5,630 tokens / 出力 91 tokens / モデル応答 2 回
+        ```
+    - 【範囲内】 `uv run python -m app.mcp_agent --trace "第1回のクイズを作って"`：
+        ```
+        [server] glossary: コマンドで起動（uv run python -m app.mcp_server）
+        [server] fetch: コマンドで起動（uvx mcp-server-fetch==2026.11.11 --no-readability-js）
+        [server] aws: URL に接続（https://knowledge-mcp.global.api.aws）
+        [model] gemini-3.5-flash-lite
+        [tools] MCP サーバー（app/mcp_servers.json）
+        第1回の確認問題はこちらです！
+
+        **【確認問題】**
+        「APIキー」とは何でしょうか？その役割と取り扱い上の注意点を踏まえて説明してください。
+
+        ---
+
+        *（参考：第1回）*
+
+        --- trace ---
+        [tool call]   glossary_make_quiz({'lecture': 1})
+        [tool return] glossary_make_quiz -> {"question": "「APIキー」とは何ですか？", "answer": "APIを呼び出す人を識別するための秘密の文字列。漏れると他人に利用枠を使われるため、コードに直接書かない、コミットしない、チャットに貼らない。本講座ではCo…
+        [usage] 入力 5,695 tokens / 出力 67 tokens / モデル応答 2 回
+        ```
+    - 【ギリギリ範囲外】 `uv run python -m app.mcp_agent --trace "第14回のクイズを作って"`：
+        ```
+        [server] glossary: コマンドで起動（uv run python -m app.mcp_server）
+        [server] fetch: コマンドで起動（uvx mcp-server-fetch==2026.11.11 --no-readability-js）
+        [server] aws: URL に接続（https://knowledge-mcp.global.api.aws）
+        [model] gemini-3.5-flash-lite
+        [tools] MCP サーバー（app/mcp_servers.json）
+        第14回の講義の用語集が見つからなかったため、確認問題を作成することができませんでした。
+
+        他の回（例: 第1回〜第13回など）の確認問題を作成しましょうか？ 気になる回があればお知らせください！
+
+        --- trace ---
+        [tool call]   glossary_make_quiz({'lecture': 14})
+        [tool return] glossary_make_quiz -> 第14回の用語が見つかりませんでした。…
+        [usage] 入力 5,630 tokens / 出力 70 tokens / モデル応答 2 回
+        ```
+- 気づき・疑問： 第 99 回（大幅な範囲外）、第 1 回（範囲内）、第 14 回（ギリギリ範囲外）のいずれも安定的に稼働するが、範囲内と範囲外の入力トークン数がほぼ同じ（65 トークン差のみ）なのが不思議 （割合が約 1 トークン ＝ 2 文字 ?）
+    - 範囲内： 第 1 回の質問で `[tool return]` の `"answer"` の値に入る、`data/glossary.json` の `"definition"` 部分だけでも 126 文字;
+    - 範囲外： 第 99 回・第 14 回の質問 共に 19 文字;
 
 ---
 - 取り組んだレベル： 発展
