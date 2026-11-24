@@ -103,12 +103,14 @@ FULL_CONTEXT_PROMPT = "<資料>\n{materials}\n</資料>\n\n質問: {question}"
 
 # モデルは実行時に渡す（テストではAPIを呼ばない TestModel に差し替えるため）
 # 第五回 (lec05aブランチ)
-agent = Agent(instructions=INSTRUCTIONS)
-agent.tool_plain(tools.search_materials)
+# agent = Agent(instructions=INSTRUCTIONS)  # 第六回　宿題　基礎の`uv run pytest -q`にfailしコメントアウト
+# agent.tool_plain(tools.search_materials)  # 第六回　宿題　基礎で下に移動（**001）
 # ～第四回 (mainブランチ)
-# agent = Agent(instructions=INSTRUCTIONS, output_type=[str, DeferredToolRequests])
+agent = Agent(instructions=INSTRUCTIONS, output_type=[str, DeferredToolRequests])  # 第六回　宿題　基礎の`uv run pytest -q`にfailし復活
 agent.tool_plain(tools.search_glossary)
 agent.tool_plain(tools.get_lecture_summary)
+
+agent.tool_plain(tools.search_materials)  # 第六回　宿題　基礎で上から移動（**001）
 
 # TODO(第3回 演習): tools.py に make_quiz を作り、ここで登録しよう
 agent.tool_plain(tools.make_quiz)  # lec03で追加
